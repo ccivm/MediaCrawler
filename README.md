@@ -248,13 +248,6 @@ dy和xhs使用Playwright登录现在会出现滑块验证 + 短信验证，手�
 		</tr>
 		<tr>
             <td align="center">
-                <a href="https://github.com/Tianci-King">
-                    <img src="https://avatars.githubusercontent.com/u/109196852?v=4" width="100;" alt="Tianci-King"/>
-                    <br />
-                    <sub><b>Wang Tianci</b></sub>
-                </a>
-            </td>
-            <td align="center">
                 <a href="https://github.com/ZuWard">
                     <img src="https://avatars.githubusercontent.com/u/38209256?v=4" width="100;" alt="ZuWard"/>
                     <br />
@@ -266,6 +259,13 @@ dy和xhs使用Playwright登录现在会出现滑块验证 + 短信验证，手�
                     <img src="https://avatars.githubusercontent.com/u/154900254?v=4" width="100;" alt="Zzendrix"/>
                     <br />
                     <sub><b>Zendrix</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/ccivm">
+                    <img src="https://avatars.githubusercontent.com/u/61642021?v=4" width="100;" alt="ccivm"/>
+                    <br />
+                    <sub><b>ccivm</b></sub>
                 </a>
             </td>
             <td align="center">
@@ -313,6 +313,13 @@ dy和xhs使用Playwright登录现在会出现滑块验证 + 短信验证，手�
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/Tianci-King">
+                    <img src="https://avatars.githubusercontent.com/u/109196852?v=4" width="100;" alt="Tianci-King"/>
+                    <br />
+                    <sub><b>Wang Tianci</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/Styunlen">
                     <img src="https://avatars.githubusercontent.com/u/30810222?v=4" width="100;" alt="Styunlen"/>
                     <br />
@@ -326,6 +333,8 @@ dy和xhs使用Playwright登录现在会出现滑块验证 + 短信验证，手�
                     <sub><b>Schofi</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/Klu5ure">
                     <img src="https://avatars.githubusercontent.com/u/166240879?v=4" width="100;" alt="Klu5ure"/>
@@ -333,8 +342,6 @@ dy和xhs使用Playwright登录现在会出现滑块验证 + 短信验证，手�
                     <sub><b>Klu5ure</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/keeper-jie">
                     <img src="https://avatars.githubusercontent.com/u/33612777?v=4" width="100;" alt="keeper-jie"/>
