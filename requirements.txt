@@ -29,7 +29,6 @@ playwright==1.42.0
 pydantic==2.5.2
 pydantic_core==2.14.5
 pyee==11.0.1
-PyExecJS==1.5.1
 PyMySQL==1.1.1
 pyparsing==3.1.2
 python-dateutil==2.9.0.post0
@@ -45,3 +44,5 @@ uvicorn==0.29.0
 wheel==0.43.0
 wordcloud==1.9.3
 zipp==3.19.2
+
+requests==2.32.3
