@@ -9,6 +9,7 @@ import os
 import random
 from asyncio import Task
 from typing import Dict, List, Optional, Tuple
+from urllib.parse import quote
 
 from playwright.async_api import (BrowserContext, BrowserType, Page,
                                   async_playwright)
@@ -61,7 +62,7 @@ class WeiboCrawler(AbstractCrawler):
 
             # Create a client to interact with the xiaohongshu website.
             self.wb_client = await self.create_weibo_client(httpx_proxy_format)
-            if not await self.wb_client.pong():
+            if not await self.wb_client.pong(): # 检测是否登录成功 否则重新登录流程
                 login_obj = WeiboLogin(
                     login_type=config.LOGIN_TYPE,
                     login_phone="",  # your phone number
@@ -79,16 +80,51 @@ class WeiboCrawler(AbstractCrawler):
                 await asyncio.sleep(2)
                 await self.wb_client.update_cookies(browser_context=self.browser_context)
 
-            crawler_type_var.set(config.CRAWLER_TYPE)
+            crawler_type_var.set(config.CRAWLER_TYPE) 
             if config.CRAWLER_TYPE == "search":
                 # Search for video and retrieve their comment information.
                 await self.search()
             elif config.CRAWLER_TYPE == "detail":
                 # Get the information and comments of the specified post
                 await self.get_specified_notes()
+            elif config.CRAWLER_TYPE == "top":
+                # Get Weibo hot search list
+                await self.get_tops()
+            elif config.CRAWLER_TYPE == "hot":
+                # Get Weibo hot search list
+                await self.get_hots()
             else:
                 pass
             utils.logger.info("[WeiboCrawler.start] Weibo Crawler finished ...")
+
+    async def get_tops(self):
+        utils.logger.info("[WeiboCrawler.get_tops] Begin get weibo top list")
+        top_res = await self.wb_client.get_top()
+        result_items: List[str] = []
+
+        for item in top_res["cards"][0]["card_group"]:  #热获取微博热搜列表
+            title = item.get("desc", "")
+            description = item.get("desc", "")
+            link = f"https://m.weibo.cn/search?containerid=100103type%3D1%26q%3D{quote(title)}"
+            result_items.append(title)
+        
+    async def get_hots(self):
+        utils.logger.info("[WeiboCrawler.get_tops] Begin get weibo top list")
+        top_res = await self.wb_client.get_hot()
+
+        note_id_list: List[str] = []
+        note_list = filter_search_result_card(top_res.get("cards"))
+        for note_item in note_list:
+                    if note_item:
+                        mblog: Dict = note_item.get("mblog")
+                        if mblog:
+                            note_id_list.append(mblog.get("id"))
+                            await weibo_store.update_weibo_note(note_item)
+                            await self.get_note_images(mblog)
+        await self.batch_get_notes_comments(note_id_list)
+
+     
+
 
     async def search(self):
         """
@@ -225,7 +261,7 @@ class WeiboCrawler(AbstractCrawler):
     async def create_weibo_client(self, httpx_proxy: Optional[str]) -> WeiboClient:
         """Create xhs client"""
         utils.logger.info("[WeiboCrawler.create_weibo_client] Begin create weibo API client ...")
-        cookie_str, cookie_dict = utils.convert_cookies(await self.browser_context.cookies())
+        cookie_str, cookie_dict = utils.convert_cookies(await self.browser_context.cookies()) # 获取cookie
         weibo_client_obj = WeiboClient(
             proxies=httpx_proxy,
             headers={

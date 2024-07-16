@@ -204,3 +204,14 @@ class WeiboClient:
                 return None
             else:
                 return response.content
+    
+    async def get_top(self) -> List[Dict]:
+        uri = "/api/container/getIndex"
+        params = {"containerid": "106003&filter_type=realtimehot"}
+        return await self.get(uri, params=params)
+    
+    async def get_hot(self) -> List[Dict]:
+        uri = "/api/container/getIndex"
+        params = {"containerid": "102803"}
+        return await self.get(uri, params=params)
+
