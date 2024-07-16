@@ -1,13 +1,13 @@
 # 基础配置
-PLATFORM = "xhs"
-KEYWORDS = "编程副业,编程兼职"
+PLATFORM = "wb"
+KEYWORDS = "python,golang"
 LOGIN_TYPE = "qrcode"  # qrcode or phone or cookie
 COOKIES = ""
 # 具体值参见media_platform.xxx.field下的枚举值，暂时只支持小红书
 SORT_TYPE = "popularity_descending"
 # 具体值参见media_platform.xxx.field下的枚举值，暂时只支持抖音
 PUBLISH_TIME_TYPE = 0
-CRAWLER_TYPE = "search"  # 爬取类型，search(关键词搜索) | detail(帖子详情)| creator(创作者主页数据)
+CRAWLER_TYPE = "hot"  # 爬取类型，search(关键词搜索) | detail(帖子详情)| creator(创作者主页数据)|top(榜单)|hot(热榜)
 
 # 是否开启 IP 代理
 ENABLE_IP_PROXY = False
@@ -46,7 +46,7 @@ MAX_CONCURRENCY_NUM = 4
 ENABLE_GET_IMAGES = False
 
 # 是否开启爬评论模式, 默认不开启爬评论
-ENABLE_GET_COMMENTS = False
+ENABLE_GET_COMMENTS = True
 
 # 是否开启爬二级评论模式, 默认不开启爬二级评论
 # 老版本项目使用了 db, 则需参考 schema/tables.sql line 287 增加表字段
