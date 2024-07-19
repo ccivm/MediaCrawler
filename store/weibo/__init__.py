@@ -67,10 +67,24 @@ async def batch_update_weibo_note_comments(note_id: str, comments: List[Dict]):
 
 
 async def update_weibo_note_comment(note_id: str, comment_item: Dict):
+
+    def replace_img_alt_with_text(text: str):
+        content_text = text
+        pattern = '<img alt=(\[.*?\]).*?/>'
+        matches = re.findall(pattern, content_text)
+        # Replace each match with its alt text
+        for match in matches:
+            content_text = re.sub(pattern, f'"{match}"', content_text, 1)
+        return content_text
+
     comment_id = str(comment_item.get("id"))
     user_info: Dict = comment_item.get("user")
     content_text = comment_item.get("text")
-    clean_text = re.sub(r"<.*?>", "", content_text)
+    replace_text = replace_img_alt_with_text(content_text)
+    utils.logger.debug(f"replace_text:{replace_text}")
+    clean_text = re.sub(r"<.*?>", "", replace_text)
+
+
     save_comment_item = {
         "comment_id": comment_id,
         "create_time": utils.rfc2822_to_timestamp(comment_item.get("created_at")),
@@ -92,6 +106,8 @@ async def update_weibo_note_comment(note_id: str, comment_item: Dict):
     utils.logger.info(
         f"[store.weibo.update_weibo_note_comment] Weibo note comment: {comment_id}, content: {save_comment_item.get('content', '')[:24]} ...")
     await WeibostoreFactory.create_store().store_comment(comment_item=save_comment_item)
+
+
 
 async def update_weibo_note_image(picid: str, pic_content, extension_file_name):
     await WeiboStoreImage().store_image({"pic_id": picid, "pic_content": pic_content, "extension_file_name": extension_file_name})

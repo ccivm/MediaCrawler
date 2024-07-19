@@ -100,3 +100,20 @@ async def update_comment_by_comment_id(comment_id: str, comment_item: Dict) -> i
     async_db_conn: AsyncMysqlDB = media_crawler_db_var.get()
     effect_row: int = await async_db_conn.update_table("weibo_note_comment", comment_item, "comment_id", comment_id)
     return effect_row
+
+async def query_comment_by_note_id(note_id: str) -> List:
+    """
+    查询一条微博下的评论内容
+    Args:
+        comment_id:
+
+    Returns:
+
+    """
+    async_db_conn: AsyncMysqlDB = media_crawler_db_var.get()
+    sql: str = f"select * from weibo_note_comment where note_id = '{note_id}'"
+    rows: List[Dict] = await async_db_conn.query(sql)
+    if len(rows) > 50:
+        return list()
+    else:
+        return rows

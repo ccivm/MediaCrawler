@@ -18,7 +18,9 @@ import config
 from base.base_crawler import AbstractCrawler
 from proxy.proxy_ip_pool import IpInfoModel, create_ip_pool
 from store import weibo as weibo_store
+from store.weibo.weibo_store_sql import query_comment_by_note_id
 from tools import utils
+from tools.blacklist import check_string_structure
 from var import crawler_type_var
 
 from .client import WeiboClient
@@ -94,6 +96,7 @@ class WeiboCrawler(AbstractCrawler):
                 # Get Weibo hot search list
                 await self.get_hots()
             else:
+                await self.is_block()
                 pass
             utils.logger.info("[WeiboCrawler.start] Weibo Crawler finished ...")
 
@@ -317,3 +320,34 @@ class WeiboCrawler(AbstractCrawler):
                 user_agent=user_agent
             )
             return browser_context
+
+    async def is_block(self):
+
+        semaphore = asyncio.Semaphore(config.MAX_CONCURRENCY_NUM)
+        utils.logger.info("[WeiboCrawler.is_block] Begin weibo SBSBSBSBSBSB")
+
+        DEBUG_LSIT=["5057837049055445", ]
+        task_list = [
+            self.get_note_info_task(note_id=note_id, semaphore=semaphore) for note_id in
+            DEBUG_LSIT
+        ]
+        video_details = await asyncio.gather(*task_list)
+        for note_item in video_details:
+            if note_item:
+                await weibo_store.update_weibo_note(note_item)
+        await self.batch_get_notes_comments(DEBUG_LSIT)
+
+        res=await query_comment_by_note_id("5057837049055445")
+        flag=0
+        for r in res:
+            if check_string_structure(r.get('content',"")):
+                flag+=1
+
+        score=flag/len(res)
+        utils.logger.info(f"[WeiboCrawler.is_block]  weibo score {score}")
+        if score>0.7:
+            utils.logger.info(f"[WeiboCrawler.is_block] 营销号【{r.get('note_id')}】刷评论")
+
+
+
+
