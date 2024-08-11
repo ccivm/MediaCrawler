@@ -5,10 +5,11 @@
 
 
 import asyncio
+import csv
 import os
 import random
 from asyncio import Task
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple,Callable
 from urllib.parse import quote
 
 from playwright.async_api import (BrowserContext, BrowserType, Page,
@@ -94,7 +95,7 @@ class WeiboCrawler(AbstractCrawler):
                 # Get Weibo hot search list
                 await self.get_hots()
             else:
-                await self.is_block()
+                await self.get_hots(callback=self.is_block)
                 pass
             utils.logger.info("[WeiboCrawler.start] Weibo Crawler finished ...")
 
@@ -108,8 +109,8 @@ class WeiboCrawler(AbstractCrawler):
             description = item.get("desc", "")
             link = f"https://m.weibo.cn/search?containerid=100103type%3D1%26q%3D{quote(title)}"
             result_items.append(title)
-        
-    async def get_hots(self):
+
+    async def get_hots(self,callback: Optional[Callable] = None):
         utils.logger.info("[WeiboCrawler.get_tops] Begin get weibo top list")
         top_res = await self.wb_client.get_hot()
 
@@ -123,6 +124,8 @@ class WeiboCrawler(AbstractCrawler):
                             await weibo_store.update_weibo_note(note_item)
                             await self.get_note_images(mblog)
         await self.batch_get_notes_comments(note_id_list)
+        if callback:
+            await callback(note_id_list)
 
      
 
@@ -319,32 +322,39 @@ class WeiboCrawler(AbstractCrawler):
             )
             return browser_context
 
-    async def is_block(self):
+    async def is_block(self,note_id_list:list[str]):
 
         semaphore = asyncio.Semaphore(config.MAX_CONCURRENCY_NUM)
         utils.logger.info("[WeiboCrawler.is_block] Begin weibo SBSBSBSBSBSB")
 
-        DEBUG_LSIT=["5057837049055445", ]
-        task_list = [
-            self.get_note_info_task(note_id=note_id, semaphore=semaphore) for note_id in
-            DEBUG_LSIT
-        ]
-        video_details = await asyncio.gather(*task_list)
-        for note_item in video_details:
-            if note_item:
-                await weibo_store.update_weibo_note(note_item)
-        await self.batch_get_notes_comments(DEBUG_LSIT)
+        block=[]
+        for note_id in  note_id_list:
+            res=await query_comment_by_note_id(note_id)
+            if len(res)<2:
+                utils.logger.info(f"[WeiboCrawler.is_block] Too few comments")
+            else:
+                flag=0
+                for r in res:
+                    if check_string_structure(r.get('content',"")):
+                        flag+=1
 
-        res=await query_comment_by_note_id("5057837049055445")
-        flag=0
-        for r in res:
-            if check_string_structure(r.get('content',"")):
-                flag+=1
+                score=flag/len(res)
+                utils.logger.info(f"[WeiboCrawler.is_block]  weibo score {score}")
+                if score>0.7:
+                    utils.logger.info(f"[WeiboCrawler.is_block] 营销号【{r.get('note_id')}】刷评论")
+                    block.append(r.get('note_id'))
 
-        score=flag/len(res)
-        utils.logger.info(f"[WeiboCrawler.is_block]  weibo score {score}")
-        if score>0.7:
-            utils.logger.info(f"[WeiboCrawler.is_block] 营销号【{r.get('note_id')}】刷评论")
+        block_file_path = 'data/weibo/block.csv'
+        os.makedirs(os.path.dirname(block_file_path), exist_ok=True)
+
+        with open(block_file_path, mode='a', newline='', encoding='utf-8') as file:
+            writer = csv.writer(file)
+            # writer.writerow(['note_id'])  # Write header
+            for note_id in block:
+                writer.writerow([note_id])  # Write each note_id
+
+        utils.logger.info(f"[WeiboCrawler.is_block] Block list saved to {block_file_path}")
+
 
 
 
