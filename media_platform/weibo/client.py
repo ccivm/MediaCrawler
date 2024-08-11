@@ -13,6 +13,7 @@ from urllib.parse import urlencode
 import httpx
 from playwright.async_api import BrowserContext, Page
 
+import config
 from tools import utils
 
 from .exception import DataFetchError
@@ -129,7 +130,7 @@ class WeiboClient:
 
         return await self.get(uri, params, headers=headers)
 
-    async def get_note_all_comments(self, note_id: str, crawl_interval: float = 1.0, is_fetch_sub_comments=False,
+    async def get_note_all_comments(self, note_id: str, crawl_interval: float = 1.0,
                                     callback: Optional[Callable] = None, ):
         """
         get note all comments include sub comments
@@ -151,11 +152,36 @@ class WeiboClient:
             if callback:  # 如果有回调函数，就执行回调函数
                 await callback(note_id, comment_list)
             await asyncio.sleep(crawl_interval)
-            if not is_fetch_sub_comments:
-                result.extend(comment_list)
-                continue
-            # todo handle get sub comments
+            result.extend(comment_list)
+            sub_comment_result = await self.get_comments_all_sub_comments(note_id, comment_list, callback)
+            result.extend(sub_comment_result)
         return result
+
+    @staticmethod
+    async def get_comments_all_sub_comments(note_id: str, comment_list: List[Dict],
+                                            callback: Optional[Callable] = None) -> List[Dict]:
+        """
+        获取评论的所有子评论
+        Args:
+            note_id:
+            comment_list:
+            callback:
+
+        Returns:
+
+        """
+        if not config.ENABLE_GET_SUB_COMMENTS:
+            utils.logger.info(
+                f"[WeiboClient.get_comments_all_sub_comments] Crawling sub_comment mode is not enabled")
+            return []
+
+        res_sub_comments = []
+        for comment in comment_list:
+            sub_comments = comment.get("comments")
+            if sub_comments and isinstance(sub_comments, list):
+                await callback(note_id, sub_comments)
+                res_sub_comments.extend(sub_comments)
+        return res_sub_comments
 
     async def get_note_info_by_id(self, note_id: str) -> Dict:
         """
@@ -204,12 +230,12 @@ class WeiboClient:
                 return None
             else:
                 return response.content
-    
+
     async def get_top(self) -> List[Dict]:
         uri = "/api/container/getIndex"
         params = {"containerid": "106003&filter_type=realtimehot"}
         return await self.get(uri, params=params)
-    
+
     async def get_hot(self) -> List[Dict]:
         uri = "/api/container/getIndex"
         params = {"containerid": "102803"}

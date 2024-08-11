@@ -7,7 +7,7 @@
 > 点击查看更为详细的免责声明。[点击跳转](#disclaimer)
 # 仓库描述
 
-**小红书爬虫**，**抖音爬虫**， **快手爬虫**， **B站爬虫**， **微博爬虫**...。  
+**小红书爬虫**，**抖音爬虫**， **快手爬虫**， **B站爬虫**， **微博爬虫**，**百度贴吧**...。  
 目前能抓取小红书、抖音、快手、B站、微博的视频、图片、评论、点赞、转发等信息。
 
 原理：利用[playwright](https://playwright.dev/)搭桥，保留登录成功后的上下文浏览器环境，通过执行JS表达式获取一些加密参数
@@ -21,7 +21,8 @@
 | 抖音  | ✅     | ✅        | ✅    | ✅       | ✅     | ✅     | ✅    |
 | 快手  | ✅     | ✅        | ✅   | ✅      | ✅     | ✅     | ✅    |
 | B 站 | ✅     | ✅        | ✅   | ✅      | ✅     | ✅     | ✅    |
-| 微博  | ✅     | ✅        | ❌   | ❌      | ✅     | ✅     | ✅    |
+| 微博  | ✅     | ✅        | ✅   | ❌      | ✅     | ✅     | ✅    |
+| 贴吧  | ✅     | ✅        | ✅   | ❌      | ✅     | ✅     | ✅    |
 
 
 ## 使用方法
@@ -99,18 +100,50 @@
   - [ MediaCrawler-基于抽象类设计重构项目缓存](https://articles.zsxq.com/id_4ju73oxewt9j.html)
   - [ 手把手带你撸一个自己的IP代理池](https://articles.zsxq.com/id_38fza371ladm.html) 
   
-  
-
 ## 感谢下列Sponsors对本仓库赞助
-- <a href="https://sider.ai/ad-land-redirect?source=github&p1=mi&p2=kk">通过注册这个款免费的GPT助手，帮我获取GPT4额度作为支持。也是我每天在用的一款chrome AI助手插件</a>
-<br>
-- 感谢 [JetBrains](https://www.jetbrains.com/?from=gaowei-space/markdown-blog) 对本项目的支持！
-<a href="https://www.jetbrains.com/?from=NanmiCoder/MediaCrawler" target="_blank">
-    <img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" width="100" height="100">
-</a>
-<br>
+- <a href="https://sider.ai/ad-land-redirect?source=github&p1=mi&p2=kk">通过注册安装这个款免费的Sider ChatGPT插件帮我获得一定奖励💰，这个插件我用了大半年，作为谷歌上最火的一款插件，体验非常不错。</a>
+> 安装并注册该浏览器插件之后保留一天即可，我就可以获得3元的推广奖励，谢谢大家，支持我继续开源项目。
 
-成为赞助者，展示你的产品在这里，联系作者：relakkes@gmail.com
+成为赞助者，展示你的产品在这里，联系作者wx：yzglan
+
+## 打赏
+
+如果觉得项目不错的话可以打赏哦。您的支持就是我最大的动力！
+
+打赏时您可以备注名称，我会将您添加至打赏列表中。
+<p>
+  <img alt="打赏-微信" src="static/images/wechat_pay.jpeg" style="width: 200px;margin-right: 140px;" />
+  <img alt="打赏-支付宝" src="static/images/zfb_pay.png" style="width: 200px" />
+</p>
+
+## 捐赠信息
+
+PS：如果打赏时请备注捐赠者，如有遗漏请联系我添加（有时候消息多可能会漏掉，十分抱歉）
+
+| 捐赠者         | 捐赠金额  | 捐赠日期       |
+|-------------|-------|------------|
+| *皓          | 50 元  | 2024-03-18 |
+| *刚          | 50 元  | 2024-03-18 |
+| *乐          | 20 元  | 2024-03-17 |
+| *木          | 20 元  | 2024-03-17 |
+| *诚          | 20 元  | 2024-03-17 |
+| Strem Gamer | 20 元  | 2024-03-16 |
+| *鑫          | 20 元  | 2024-03-14 |
+| Yuzu        | 20 元  | 2024-03-07 |
+| **宁         | 100 元 | 2024-03-03 |
+| **媛         | 20 元  | 2024-03-03 |
+| Scarlett    | 20 元  | 2024-02-16 |
+| Asun        | 20 元  | 2024-01-30 |
+| 何*          | 100 元 | 2024-01-21 |
+| allen       | 20 元  | 2024-01-10 |
+| llllll      | 20 元  | 2024-01-07 |
+| 邝*元         | 20 元  | 2023-12-29 |
+| 50chen      | 50 元  | 2023-12-22 |
+| xiongot     | 20 元  | 2023-12-17 |
+| atom.hu     | 20 元  | 2023-12-16 |
+| 一呆          | 20 元  | 2023-12-01 |
+| 坠落          | 50 元  | 2023-11-08 |
+
 
 
 ## MediaCrawler爬虫项目交流群：
@@ -142,13 +175,6 @@ dy和xhs使用Playwright登录现在会出现滑块验证 + 短信验证，手�
 ## 手机号登录说明
 ➡️➡️➡️ [手机号登录说明](docs/手机号登录说明.md)
 
-
-## 打赏
-免费开源不易，如果项目帮到你了，可以给我打赏哦，您的支持就是我最大的动力！
-<div style="display: flex;justify-content: space-between;width: 100%">
-    <p><img alt="打赏-微信" src="static/images/wechat_pay.jpeg" style="width: 200px;height: 100%" ></p>
-    <p><img alt="打赏-支付宝" src="static/images/zfb_pay.png"   style="width: 200px;height: 100%" ></p>
-</div>
 
 ## 爬虫入门课程
 我新开的爬虫教程Github仓库 [CrawlerTutorial](https://github.com/NanmiCoder/CrawlerTutorial) ，感兴趣的朋友可以关注一下，持续更新，主打一个免费.
@@ -205,10 +231,10 @@ dy和xhs使用Playwright登录现在会出现滑块验证 + 短信验证，手�
 		</tr>
 		<tr>
             <td align="center">
-                <a href="https://github.com/Hiro-Lin">
-                    <img src="https://avatars.githubusercontent.com/u/40111864?v=4" width="100;" alt="Hiro-Lin"/>
+                <a href="https://github.com/Ermeng98">
+                    <img src="https://avatars.githubusercontent.com/u/55784769?v=4" width="100;" alt="Ermeng98"/>
                     <br />
-                    <sub><b>HIRO</b></sub>
+                    <sub><b>Ermeng</b></sub>
                 </a>
             </td>
             <td align="center">
@@ -219,17 +245,17 @@ dy和xhs使用Playwright登录现在会出现滑块验证 + 短信验证，手�
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/Ermeng98">
-                    <img src="https://avatars.githubusercontent.com/u/55784769?v=4" width="100;" alt="Ermeng98"/>
+                <a href="https://github.com/Hiro-Lin">
+                    <img src="https://avatars.githubusercontent.com/u/40111864?v=4" width="100;" alt="Hiro-Lin"/>
                     <br />
-                    <sub><b>Ermeng</b></sub>
+                    <sub><b>HIRO</b></sub>
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/jayeeliu">
-                    <img src="https://avatars.githubusercontent.com/u/77389?v=4" width="100;" alt="jayeeliu"/>
+                <a href="https://github.com/henryhyn">
+                    <img src="https://avatars.githubusercontent.com/u/5162443?v=4" width="100;" alt="henryhyn"/>
                     <br />
-                    <sub><b>jayeeliu</b></sub>
+                    <sub><b>Henry He</b></sub>
                 </a>
             </td>
             <td align="center">
@@ -240,47 +266,47 @@ dy和xhs使用Playwright登录现在会出现滑块验证 + 短信验证，手�
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/ccivm">
-                    <img src="https://avatars.githubusercontent.com/u/61642021?v=4" width="100;" alt="ccivm"/>
+                <a href="https://github.com/jayeeliu">
+                    <img src="https://avatars.githubusercontent.com/u/77389?v=4" width="100;" alt="jayeeliu"/>
                     <br />
-                    <sub><b>ccivm</b></sub>
+                    <sub><b>jayeeliu</b></sub>
                 </a>
             </td>
 		</tr>
 		<tr>
             <td align="center">
-                <a href="https://github.com/henryhyn">
-                    <img src="https://avatars.githubusercontent.com/u/5162443?v=4" width="100;" alt="henryhyn"/>
+                <a href="https://github.com/fruitswordman">
+                    <img src="https://avatars.githubusercontent.com/u/103844614?v=4" width="100;" alt="fruitswordman"/>
                     <br />
-                    <sub><b>Henry He</b></sub>
+                    <sub><b>Wenbo Lu</b></sub>
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/renaissancezyc">
-                    <img src="https://avatars.githubusercontent.com/u/118403818?v=4" width="100;" alt="renaissancezyc"/>
+                <a href="https://github.com/ZhouXsh">
+                    <img src="https://avatars.githubusercontent.com/u/131248181?v=4" width="100;" alt="ZhouXsh"/>
                     <br />
-                    <sub><b>Ren</b></sub>
+                    <sub><b>ZhouXsh</b></sub>
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/zhihuiio">
-                    <img src="https://avatars.githubusercontent.com/u/165655688?v=4" width="100;" alt="zhihuiio"/>
+                <a href="https://github.com/ZuWard">
+                    <img src="https://avatars.githubusercontent.com/u/38209256?v=4" width="100;" alt="ZuWard"/>
                     <br />
-                    <sub><b>zhihuiio</b></sub>
+                    <sub><b>ZuWard</b></sub>
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/yangrq1018">
-                    <img src="https://avatars.githubusercontent.com/u/25074163?v=4" width="100;" alt="yangrq1018"/>
+                <a href="https://github.com/Zzendrix">
+                    <img src="https://avatars.githubusercontent.com/u/154900254?v=4" width="100;" alt="Zzendrix"/>
                     <br />
-                    <sub><b>Martin</b></sub>
+                    <sub><b>Zendrix</b></sub>
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/xbsheng">
-                    <img src="https://avatars.githubusercontent.com/u/56357338?v=4" width="100;" alt="xbsheng"/>
+                <a href="https://github.com/chunpat">
+                    <img src="https://avatars.githubusercontent.com/u/19848304?v=4" width="100;" alt="chunpat"/>
                     <br />
-                    <sub><b>xbsheng</b></sub>
+                    <sub><b>zhangzhenpeng</b></sub>
                 </a>
             </td>
             <td align="center">
@@ -293,24 +319,31 @@ dy和xhs使用Playwright登录现在会出现滑块验证 + 短信验证，手�
 		</tr>
 		<tr>
             <td align="center">
-                <a href="https://github.com/chunpat">
-                    <img src="https://avatars.githubusercontent.com/u/19848304?v=4" width="100;" alt="chunpat"/>
+                <a href="https://github.com/xbsheng">
+                    <img src="https://avatars.githubusercontent.com/u/56357338?v=4" width="100;" alt="xbsheng"/>
                     <br />
-                    <sub><b>zhangzhenpeng</b></sub>
+                    <sub><b>xbsheng</b></sub>
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/Zzendrix">
-                    <img src="https://avatars.githubusercontent.com/u/154900254?v=4" width="100;" alt="Zzendrix"/>
+                <a href="https://github.com/yangrq1018">
+                    <img src="https://avatars.githubusercontent.com/u/25074163?v=4" width="100;" alt="yangrq1018"/>
                     <br />
-                    <sub><b>Zendrix</b></sub>
+                    <sub><b>Martin</b></sub>
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/ZuWard">
-                    <img src="https://avatars.githubusercontent.com/u/38209256?v=4" width="100;" alt="ZuWard"/>
+                <a href="https://github.com/zhihuiio">
+                    <img src="https://avatars.githubusercontent.com/u/165655688?v=4" width="100;" alt="zhihuiio"/>
                     <br />
-                    <sub><b>ZuWard</b></sub>
+                    <sub><b>zhihuiio</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/renaissancezyc">
+                    <img src="https://avatars.githubusercontent.com/u/118403818?v=4" width="100;" alt="renaissancezyc"/>
+                    <br />
+                    <sub><b>Ren</b></sub>
                 </a>
             </td>
             <td align="center">
@@ -327,6 +360,8 @@ dy和xhs使用Playwright登录现在会出现滑块验证 + 短信验证，手�
                     <sub><b>Styunlen</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/Schofi">
                     <img src="https://avatars.githubusercontent.com/u/33537727?v=4" width="100;" alt="Schofi"/>
@@ -334,8 +369,6 @@ dy和xhs使用Playwright登录现在会出现滑块验证 + 短信验证，手�
                     <sub><b>Schofi</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/Klu5ure">
                     <img src="https://avatars.githubusercontent.com/u/166240879?v=4" width="100;" alt="Klu5ure"/>
@@ -364,6 +397,15 @@ dy和xhs使用Playwright登录现在会出现滑块验证 + 短信验证，手�
                     <sub><b>Jian Chang</b></sub>
                 </a>
             </td>
+            <td align="center">
+                <a href="https://github.com/Jasonyang2014">
+                    <img src="https://avatars.githubusercontent.com/u/8269290?v=4" width="100;" alt="Jasonyang2014"/>
+                    <br />
+                    <sub><b>AuYeung</b></sub>
+                </a>
+            </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/522109452">
                     <img src="https://avatars.githubusercontent.com/u/16929874?v=4" width="100;" alt="522109452"/>
@@ -424,4 +466,8 @@ dy和xhs使用Playwright登录现在会出现滑块验证 + 短信验证，手�
 
 
 
+### 感谢JetBrains提供的免费开源许可证支持
+<a href="https://www.jetbrains.com/?from=MediaCrawler">
+    <img src="https://www.jetbrains.com/company/brand/img/jetbrains_logo.png" width="100" alt="JetBrains" />
+</a>
 
